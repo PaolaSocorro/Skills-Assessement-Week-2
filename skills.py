@@ -28,8 +28,13 @@ def count_unique(input_string):
         {'Porcupine': 1, 'do.': 1, 'porcupine': 1, 'see,': 1}
 
     """
+    word_list = input_string.split(" ")
+    word_count = {}
 
-    return {}
+    for word in word_list:
+        word_count[word]=word_count.get(word,0)+1
+
+    return word_count
 
 
 def find_common_items(list1, list2):
@@ -58,8 +63,14 @@ def find_common_items(list1, list2):
         [1, 1, 2, 2]
 
     """
+    common_list = []
+    for num in list1:
+        for i in list2:
+            if num == i:
+                common_list.append(num)
 
-    return []
+    return common_list
+
 
 
 def find_unique_common_items(list1, list2):
@@ -83,8 +94,13 @@ def find_unique_common_items(list1, list2):
         [1, 2]
 
     """
+    common_list = []
+    for num in list1:
+        for i in list2:
+            if num == i and num not in common_list:
+                common_list.append(num)
 
-    return []
+    return common_list
 
 
 def get_sum_zero_pairs(input_list):
@@ -116,8 +132,14 @@ def get_sum_zero_pairs(input_list):
         [[-2, 2], [-1, 1], [0, 0]]
 
     """
+    set_list = set(input_list)
+    pair_list = []
 
-    return []
+    for item in set_list:
+        if item >= 0 and -item in set_list:
+            pair_list.append([-item,item])
+
+    return pair_list
 
 
 def remove_duplicates(words):
@@ -137,8 +159,12 @@ def remove_duplicates(words):
         ['Rose', 'a', 'is', 'rose']
 
     """
+    unique_words = {}
+    unique_words = {i:1 for i in words}
 
-    return []
+    return list(unique_words.keys())
+    #yayyyyyyyyyyy dictionary comprehension omg it worked!
+
 
 
 def encode(phrase):
@@ -151,7 +177,12 @@ def encode(phrase):
         >>> encode("You are a beautiful, talented, brilliant, powerful musk ox.")
         'You drp d bpduouful, odlpnopd, brulludno, powprful musk ox.'
     """
-    return ''
+    phrase = phrase.replace("e","p")
+    phrase = phrase.replace("a","d")
+    phrase = phrase.replace("t","o")
+    phrase = phrase.replace("i","u")
+    return phrase
+
 
 
 def sort_by_word_length(words):
@@ -167,8 +198,10 @@ def sort_by_word_length(words):
         [(1, ['a']), (2, ['ok', 'an']), (3, ['day']), (5, ['apple'])]
 
     """
-
-    return []
+    length_dict = {}
+    for i in words:
+        length_dict.setdefault(len(i),[]).append(i)
+    return sorted(length_dict.items())
 
 
 def get_pirate_talk(phrase):
@@ -213,8 +246,35 @@ def get_pirate_talk(phrase):
         'me swabbie be not a man!'
 
     """
+    english_to_pirate = {
+    'student': 'swabbie',
+    'my': 'me',
+    'is': 'be',
+    'man': 'matey',
+    'sir':  'matey',
+    'hotel': 'fleabag inn',
+    'boy': 'matey',
+    'madam': 'proud beauty',
+    'professor': 'foul blaggart',
+    'restaurant': 'galley',
+    'your': 'yer',
+    'excuse': 'arr',
+    'students': 'swabbies',
+    'are': 'be',
+    'lawyer': 'foul blaggart',
+    'the': 'th',
+    'restroom': 'head',
+    'hello': 'avast',}
 
-    return ""
+    original = phrase.split(" ")
+
+    x = [[word,english_to_pirate.get(word)] for word in original if word in english_to_pirate.keys()]
+
+    #HALP ^ WHAT THE HELL DID I JUST DOOOOOO! IT WORKS BUT I'M MISSING WORDS
+    #IT SUCKS IDK HOW TO ADD AN ELSE. AND THEN I HAVE TO JOIN ALL THAT
+    # ITS MADNESSS!! 
+    #I MAKE DICTIONARY COMPREHENSIONS THO. ^^ .
+    return x
 
 # End of skills. See below for advanced problems.
 # To work on them, set ADVANCED=True at the top of this file.
